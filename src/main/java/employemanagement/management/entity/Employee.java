@@ -25,9 +25,14 @@ public class Employee {
     private int id;
     @Column (name = "emp_name")
     private String empName;
-    @Column (name = "emp_designation")
-    private String designation;
-    @Column(name = "emp_salary")
+    @Column (name = "emp_city")
+    private String city;
+    @Column(name = "emp_Salary")
     private double empSalary;
+    @Column(name = "emp_bonus")
+    private double bonus;
+   
+ 
+ 
     
 }

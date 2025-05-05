@@ -20,7 +20,7 @@ import employemanagement.management.exception.EmployeeNottFoundException;
 import employemanagement.management.repository.EmployeeRepository;
 
 @RestController
-@CrossOrigin (origins = "http://localhost:4200")
+@CrossOrigin (origins = "*")
 public class EmployeeController {
     @Autowired
     private EmployeeRepository employeeRepository;
@@ -47,13 +47,13 @@ public class EmployeeController {
     public ResponseEntity<Employee> updateEmployee(@PathVariable int empId, @RequestBody Employee EmployeeDetails) {
         Employee employee = employeeRepository.findById(empId).orElseThrow(() -> new EmployeeNottFoundException ("Employee with Employee Id"+empId+"does not exist"));
         employee.setEmpName(EmployeeDetails.getEmpName());
-        employee.setDesignation(EmployeeDetails.getDesignation());
+        employee.setCity(EmployeeDetails.getCity());
         employee.setEmpSalary(EmployeeDetails.getEmpSalary());
+        employee.setBonus(EmployeeDetails.getBonus());
         employeeRepository.save(employee);
         return ResponseEntity.ok(employee);
     }
-
-    @DeleteMapping("/employees/{empId}")
+     @DeleteMapping("/employees/{empId}")
     public ResponseEntity<Map<String, Boolean>> deleteEmployee(@PathVariable int empId) {
         Employee employee = employeeRepository.findById(empId).orElseThrow(() -> new EmployeeNottFoundException ("Employee with Employee Id"+empId+"does not exist"));
         employeeRepository.delete(employee);
@@ -61,4 +61,6 @@ public class EmployeeController {
         response.put("Deleted", Boolean.TRUE);
         return ResponseEntity.ok(response);
     }
+
+    
 }
